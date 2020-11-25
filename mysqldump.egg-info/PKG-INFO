@@ -1,0 +1,37 @@
+Metadata-Version: 1.1
+Name: mysqldump
+Version: 0.0.3
+Summary: Mysqldump is a django package that is used to generate the logical backup of the MySQL database
+Home-page: UNKNOWN
+Author: Nandhakumar D
+Author-email: dnandhakumars@gmail.com
+License: MIT
+Description: Mysqldump is a django package that is used to generate the logical backup of the MySQL database
+        
+        generate backup of the MySQL database:
+        
+        ./manage.py dumpdb
+        
+        
+        setting.py
+        -------------- 
+        
+        DBDUMP_DIR
+        
+        define directory to store dump data.
+        
+        0.0.1
+        ========
+        
+        first release
+        --------------------
+        dumpdb command alone
+        
+        added 'DBDUMP_DIR' dump directory path
+Keywords: mysqldump
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Education
+Classifier: Operating System :: POSIX :: Linux
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
