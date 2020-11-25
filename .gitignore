@@ -1,0 +1,6 @@
+.vscode/
+dist/
+env/
+manage.py
+mysqldump.egg-info/
+sample1/

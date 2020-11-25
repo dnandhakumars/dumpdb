@@ -1,0 +1,8 @@
+0.0.1
+========
+
+first release
+--------------------
+dumpdb command alone
+
+added 'DBDUMP_DIR' dump directory path
