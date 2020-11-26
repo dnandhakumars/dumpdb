@@ -1,13 +1,21 @@
-Mysqldump is a django package that is used to generate the logical backup of the MySQL database
+Mysqldump is a django package used to generate
+the logical backup of the MySQL database.
 
-generate backup of the MySQL database:
-
-./manage.py dumpdb
-
+Installation
+    1. pip install mysqldump
+    2. Add 'backupdb' to your 'settings.py'
+    3. Run the below command
+            ./manage.py dumpdb
 
 setting.py
 -------------- 
 
-DBDUMP_DIR
+Installed apps
 
-define directory to store dump data.
+    INSTALLED_APPS = [
+        'backupdb',
+    ]
+
+TMP_DIR
+
+To define custom temporary dir, if not django will use default system tmp directory

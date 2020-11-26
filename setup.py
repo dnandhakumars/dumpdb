@@ -1,5 +1,7 @@
 from setuptools import setup, find_packages
- 
+from os import path
+
+
 classifiers = [
   'Development Status :: 4 - Beta',
   'Intended Audience :: Education',
@@ -10,9 +12,10 @@ classifiers = [
  
 setup(
   name='mysqldump',
-  version='0.0.3',
+  version='0.0.6',
   description='Mysqldump is a django package that is used to generate the logical backup of the MySQL database',
   long_description=open('README.txt').read() + '\n\n' + open('CHANGELOG.txt').read(),
+  long_description_content_type = 'text/markdown',
   url='',  
   author='Nandhakumar D',
   author_email='dnandhakumars@gmail.com',

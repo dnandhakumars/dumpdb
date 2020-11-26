@@ -1,33 +1,50 @@
-Metadata-Version: 1.1
+Metadata-Version: 2.1
 Name: mysqldump
-Version: 0.0.3
+Version: 0.0.6
 Summary: Mysqldump is a django package that is used to generate the logical backup of the MySQL database
 Home-page: UNKNOWN
 Author: Nandhakumar D
 Author-email: dnandhakumars@gmail.com
 License: MIT
-Description: Mysqldump is a django package that is used to generate the logical backup of the MySQL database
+Description: Mysqldump is a django package used to generate
+        the logical backup of the MySQL database.
         
-        generate backup of the MySQL database:
-        
-        ./manage.py dumpdb
-        
+        Installation
+            1. pip install mysqldump
+            2. Add 'backupdb' to your 'settings.py'
+            3. Run the below command
+                    ./manage.py dumpdb
         
         setting.py
         -------------- 
         
-        DBDUMP_DIR
+        Installed apps
         
-        define directory to store dump data.
+            INSTALLED_APPS = [
+                'backupdb',
+            ]
         
-        0.0.1
+        TMP_DIR
+        
+        To define custom temporary dir, if not django will use default system tmp directory
+        
+        0.0.1 & 0.0.2
+        =============
+        
+        first release added support for mysql.
+        
+        0.0.3
         ========
+        fixed minor bug
         
-        first release
-        --------------------
-        dumpdb command alone
+        0.0.4
+        ========
+        changed terminal output style
         
-        added 'DBDUMP_DIR' dump directory path
+        0.0.5 & 0.0.6
+        ===============
+        
+        fixed 'default' database dummy engine null value.
 Keywords: mysqldump
 Platform: UNKNOWN
 Classifier: Development Status :: 4 - Beta
@@ -35,3 +52,4 @@ Classifier: Intended Audience :: Education
 Classifier: Operating System :: POSIX :: Linux
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown

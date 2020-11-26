@@ -1,8 +1,17 @@
-0.0.1
+0.0.1 & 0.0.2
+=============
+
+first release added support for mysql.
+
+0.0.3
 ========
+fixed minor bug
 
-first release
---------------------
-dumpdb command alone
+0.0.4
+========
+changed terminal output style
 
-added 'DBDUMP_DIR' dump directory path
+0.0.5 & 0.0.6
+===============
+
+fixed 'default' database dummy engine null value.
