@@ -1,10 +1,9 @@
-from .base import BaseCommandDBConnector
+from .base import CommonBaseCommand
 
 
-class MysqlDumpConnector(BaseCommandDBConnector):
+class MysqlDumper(CommonBaseCommand):
     """
-    MySQL connector, creates dump with ``mysqldump`` and restore with
-    ``mysql``.
+        Run mysqldump command to backup and restore database
     """
     dump_cmd = 'mysqldump'
     restore_cmd = 'mysql'
@@ -21,8 +20,8 @@ class MysqlDumpConnector(BaseCommandDBConnector):
             cmd += ' --password={}'.format(self.settings['PASSWORD'])
         for table in self.exclude:
             cmd += ' --ignore-table={}.{}'.format(self.settings['NAME'], table)
-        cmd = '{} {} {}'.format(self.dump_prefix, cmd, self.dump_suffix)
-        stdout, stderr = self.run_command(cmd, env=self.dump_env)
+        #cmd = '{} {} {}'.format(self.dump_prefix, cmd, self.dump_suffix)
+        stdout, stderr = self.run_command(cmd)
         return stdout
 
     def _restore_dump(self, dump):
@@ -35,6 +34,6 @@ class MysqlDumpConnector(BaseCommandDBConnector):
             cmd += ' --user={}'.format(self.settings['USER'])
         if self.settings.get('PASSWORD'):
             cmd += ' --password={}'.format(self.settings['PASSWORD'])
-        cmd = '{} {} {}'.format(self.restore_prefix, cmd, self.restore_suffix)
-        stdout, stderr = self.run_command(cmd, stdin=dump, env=self.restore_env)
+        #cmd = '{} {} {}'.format(self.restore_prefix, cmd, self.restore_suffix)
+        stdout, stderr = self.run_command(cmd, stdin=dump)
         return stdout, stderr
