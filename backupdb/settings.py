@@ -3,7 +3,7 @@ import tempfile
 from django.conf import settings
 
 CUSTOM_MODULES = {
-    'django.db.backends.mysql': 'backupdb.dbconnect.mysql.MysqlDumper',
+    'django.db.backends.mysql': 'backupdb.dbbackends.mysql.MysqlDump',
 }
 
 # Custom Settings
@@ -28,4 +28,4 @@ PROJ_DIR = getattr(settings, 'BASE_DIR')
 # define temporary directory or get default system tmp dir
 TMP_DIR = getattr(settings, 'TMP_DIR', tempfile.gettempdir())
 
-DUMP_DIR = getattr(settings, 'DUMP_DIR', str(PROJ_DIR)+'/')
+DUMP_DIR = getattr(settings, 'DUMP_DIR', str(PROJ_DIR))

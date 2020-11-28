@@ -1,10 +1,11 @@
 import os
 import shlex
+import datetime
 from django.core.files.base import File
 from tempfile import SpooledTemporaryFile
 from subprocess import Popen
 from importlib import import_module
-from backupdb import settings
+from backupdb import settings, exceptions
 from shutil import copyfileobj
 
 class BaseSettingsConverter(object):
@@ -30,16 +31,27 @@ class BaseSettingsConverter(object):
             self._settings = sett
         return self._settings
 
-    def get_filename_path(self, database=None):
-        return self.name+'.'+self.file_extension
+    def get_filename(self, curr_time):
+        return "{timestamp}_{dbname}.{Extn}".format(timestamp = curr_time.strftime("%Y%m%d%H%M%S%f"), dbname = self.name, Extn=self.file_extension)
 
     def create_dump(self):
         dump = self._create_dump()
         return dump
 
-    def write_local_file(self, outputfile, filename):
+    def write_file_to_local(self, outputfile, filename):
         custom_path = settings.DUMP_DIR
-        dump_file = custom_path + filename
+        if os.getcwd() == custom_path:
+            dump_file = custom_path+'/'+filename
+        else:
+            stripped_path = custom_path.strip('/')
+            try:
+                os.makedirs(stripped_path, exist_ok=True)
+            except OSError as e:
+                raise exceptions.CustomFileException(e)
+            dump_file = (stripped_path+'/'+filename)
+        
+        #seek(0), which means absolute file positioning
+        outputfile.seek(0)
         with open(dump_file, 'wb') as fd:
             copyfileobj(outputfile, fd)
         
@@ -49,7 +61,8 @@ class CommonBaseCommand(BaseSettingsConverter):
     """
 
     def run_command(self, command, stdin=None, env=None):
-      
+        
+        #commands as list
         cmd = shlex.split(command)
 
         # creating file obj
@@ -63,16 +76,14 @@ class CommonBaseCommand(BaseSettingsConverter):
                 process = Popen(cmd, stdin=stdin, stdout=stdout, stderr=stderr)
             process.wait()      #Wait for child process to terminate
             if process.poll():  #Check if child process has terminated
-                print('error found')
-
+                raise exceptions.SubProcessException(process.stderr)
             return stdout, stderr
         except OSError as err:
-            print('OSerror found')
-
+            raise exceptions.ProcessException(err)
 
 def get_module(database_name=None, conn=None):
     """
-        Get required function based on db engine
+        Get required function as module based on db engine
     """
     engine = conn.settings_dict.get('ENGINE', None)
     conn_settings = conn.settings_dict

@@ -1,7 +1,7 @@
 from .base import CommonBaseCommand
 
 
-class MysqlDumper(CommonBaseCommand):
+class MysqlDump(CommonBaseCommand):
     """
         Run mysqldump command to backup and restore database
     """
@@ -20,7 +20,6 @@ class MysqlDumper(CommonBaseCommand):
             cmd += ' --password={}'.format(self.settings['PASSWORD'])
         for table in self.exclude:
             cmd += ' --ignore-table={}.{}'.format(self.settings['NAME'], table)
-        #cmd = '{} {} {}'.format(self.dump_prefix, cmd, self.dump_suffix)
         stdout, stderr = self.run_command(cmd)
         return stdout
 
@@ -34,6 +33,6 @@ class MysqlDumper(CommonBaseCommand):
             cmd += ' --user={}'.format(self.settings['USER'])
         if self.settings.get('PASSWORD'):
             cmd += ' --password={}'.format(self.settings['PASSWORD'])
-        #cmd = '{} {} {}'.format(self.restore_prefix, cmd, self.restore_suffix)
+            
         stdout, stderr = self.run_command(cmd, stdin=dump)
         return stdout, stderr
