@@ -1,5 +1,6 @@
 import os
 import shlex
+import pathlib
 import datetime
 from django.core.files.base import File
 from tempfile import SpooledTemporaryFile
@@ -40,19 +41,11 @@ class BaseSettingsConverter(object):
 
     def write_file_to_local(self, outputfile, filename):
         custom_path = settings.DUMP_DIR
-        if os.getcwd() == custom_path:
-            dump_file = custom_path+'/'+filename
-        else:
-            stripped_path = custom_path.strip('/')
-            try:
-                os.makedirs(stripped_path, exist_ok=True)
-            except OSError as e:
-                raise exceptions.CustomFileException(e)
-            dump_file = (stripped_path+'/'+filename)
-        
+        pathlib.Path(custom_path).mkdir(parents=True, exist_ok=True)
+        q = pathlib.Path(custom_path) / filename
         #seek(0), which means absolute file positioning
         outputfile.seek(0)
-        with open(dump_file, 'wb') as fd:
+        with open(q.resolve(), 'wb') as fd:
             copyfileobj(outputfile, fd)
         
 class CommonBaseCommand(BaseSettingsConverter):
