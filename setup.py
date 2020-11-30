@@ -9,12 +9,16 @@ classifiers = [
   'License :: OSI Approved :: MIT License',
   'Programming Language :: Python :: 3'
 ]
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
  
 setup(
   name='mysqldump',
   version='0.0.7',
   description='Mysqldump is a django package that is used to generate the logical backup of the MySQL database',
-  long_description=open('README.md').read(),
+  long_description=long_description,
   long_description_content_type = 'text/markdown',
   url='',  
   author='Nandhakumar D',
@@ -24,5 +28,6 @@ setup(
   keywords='mysqldump', 
   include_package_data=True,
   packages=find_packages(),
+  python_requires='>=3.6',
   install_requires=['django>=3.0']
 )

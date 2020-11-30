@@ -1,50 +1,92 @@
 Metadata-Version: 2.1
 Name: mysqldump
-Version: 0.0.6
+Version: 0.0.7
 Summary: Mysqldump is a django package that is used to generate the logical backup of the MySQL database
 Home-page: UNKNOWN
 Author: Nandhakumar D
 Author-email: dnandhakumars@gmail.com
 License: MIT
-Description: Mysqldump is a django package used to generate
-        the logical backup of the MySQL database.
+Description: Mysqldump is a django package used to generate the database backup(s) and to restore it.
         
-        Installation
-            1. pip install mysqldump
-            2. Add 'backupdb' to your 'settings.py'
-            3. Run the below command
-                    ./manage.py dumpdb
+        ## Installation
+            * pip install mysqldump
+            * Add 'backupdb' to your 'settings.py'
+            * Run the below command to backup all database(s) configured inside *settings.py*
+                * ./manage.py backupdb
         
-        setting.py
-        -------------- 
+        ## setting.py
+        -----------------
         
-        Installed apps
+        ** Installed apps: **
         
+        ```
             INSTALLED_APPS = [
                 'backupdb',
             ]
+        ```
         
-        TMP_DIR
+        ** TMP_DIR **
         
-        To define custom temporary dir, if not django will use default system tmp directory
+        ```
+            TMP_DIR = '/var/www/html/my_project/tmp/'
         
-        0.0.1 & 0.0.2
-        =============
+        ```
+        By default package will use system tmp directory.
         
-        first release added support for mysql.
+        ** DUMP_DIR **
         
-        0.0.3
-        ========
-        fixed minor bug
+        ```
+            DUMP_DIR = '/var/www/html/my_project/backup_dir/'
+        ```
+        Specify the location to store the dumped data.
         
-        0.0.4
-        ========
-        changed terminal output style
         
-        0.0.5 & 0.0.6
-        ===============
+        ## Commands
+        ------------
         
-        fixed 'default' database dummy engine null value.
+        if you use the backupdb option alone, entire database(s) are dumped.
+        
+        ```
+            ./manage.py backupdb
+        
+        Running backupdb:
+        Selected Database: db_name1
+        Processing file: 20201130095543386091_db_name1.dump
+        Dump completed on 2020-Nov-30 09:55:43
+        
+        ```
+        
+        To dump specified database using database name.
+        
+        -d, --databases
+        
+        ```
+            ./manage.py backupdb --databases db_name1 db_name2 ....
+        
+        Running backupdb:
+        Selected Database: db_name1
+        Processing file: 20201130095543386091_db_name1.dump
+        Dump completed on 2020-Nov-30 09:55:43
+        Running backupdb:
+        Selected Database: db_name1
+        Processing file: 20201130095543920698_db_name2.dump
+        Dump completed on 2020-Nov-30 09:55:43
+        
+        ```
+        
+        To compress the dump data with gzip.
+        
+        -gz, --compress
+        
+        ```
+            ./manage.py backupdb --compress
+        
+        Running backupdb:
+        Selected Database: db_name1
+        Processing file: 20201130095543386091_db_name1.dump.gz
+        Dump completed on 2020-Nov-30 09:55:43
+        
+        ```
 Keywords: mysqldump
 Platform: UNKNOWN
 Classifier: Development Status :: 4 - Beta
@@ -52,4 +94,5 @@ Classifier: Intended Audience :: Education
 Classifier: Operating System :: POSIX :: Linux
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
 Description-Content-Type: text/markdown
