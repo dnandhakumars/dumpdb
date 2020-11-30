@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('-d', '--databases', nargs='+', help="To dump selected db --databases [OPTIONS] DB1,DB2,DB3...]")
-        parser.add_argument('-z', '--compress', action='store_true', help='to compress dump file')
+        parser.add_argument('-gz', '--compress', action='store_true', help='to compress dump file')
 
     def handle(self, *args, **options):
         opt_databases = options.get('databases', None)

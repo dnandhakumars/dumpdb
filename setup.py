@@ -12,9 +12,9 @@ classifiers = [
  
 setup(
   name='mysqldump',
-  version='0.0.6',
+  version='0.0.7',
   description='Mysqldump is a django package that is used to generate the logical backup of the MySQL database',
-  long_description=open('README.txt').read() + '\n\n' + open('CHANGELOG.txt').read(),
+  long_description=open('README.md').read(),
   long_description_content_type = 'text/markdown',
   url='',  
   author='Nandhakumar D',

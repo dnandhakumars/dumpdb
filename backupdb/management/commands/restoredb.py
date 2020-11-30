@@ -4,4 +4,8 @@ class Command(BaseCommand):
     """
     restoredb command to restore data to current or mentioned database(s)
     """
-    pass
+    def handle(self, *args, **options):
+        """
+        docstring
+        """
+        print("Sorry!!! This command will be released in next version.")
