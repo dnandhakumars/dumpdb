@@ -36,7 +36,7 @@ Specify the location to store the dumped data.
 ## Commands
 ------------
 
-if you use the backupdb option alone, entire database(s) are dumped.
+*backupdb* will dump all database(s) specified inside **settings.py**.
 
 ```
     ./manage.py backupdb
@@ -77,5 +77,27 @@ Running backupdb:
 Selected Database: db_name1
 Processing file: 20201130095543386091_db_name1.dump.gz
 Dump completed on 2020-Nov-30 09:55:43
+
+```
+
+To dump specified table from database.
+
+-tbl, --tables
+
+```
+    ./manage.py backupdb -d db_name1 --tables tbl_name1 tbl_name2
+```
+
+To ignore specified table from database(s).
+
+-itbl, --ignore-table
+
+```
+    ./manage.py backupdb -d db_name1 --ignore-table db_name1.tbl_name1
+```
+
+multiple databases can be used while using command ignore table(s).
+```
+    ./manage.py backupdb -d db_name1 db_name2 --ignore-table db_name1.tbl_name1 db_name2.tbl_name2
 
 ```

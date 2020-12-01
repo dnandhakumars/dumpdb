@@ -25,20 +25,14 @@ class CustomFileException(Error):
     def __str__(self):
         return f'{self.error_type} -> {self.message} -> {self.dir_path}'
 
-class SubProcessException(Error):
-    """Raised when subprocess faced blocks"""
+class CustomCommandException(Error):
+    """Raised when subprocess.popen faced blocks"""
 
-    def __init__(self, error_obj, message = "Subprocess failed"):
-        self.error_type = error_obj.read()
-        self.message = message
+    def __init__(self, message = "Subprocess failed"):
+        exclude_str = 'mysqldump: [Warning] Using a password on the command line interface can be insecure.'
+        msg = message.replace(exclude_str, '')
+        self.message = msg
         super().__init__(self.message)
 
     def __str__(self):
-        return f'{self.error_type} -> {self.message}'
-
-class SubProcessException(Error):
-    """Raised when main process faced blocks"""
-    def __init__(self, error_obj, message = "Process failed"):
-        self.error_type = error_obj
-        self.message = message
-        super().__init__(self.message)
+        return self.message

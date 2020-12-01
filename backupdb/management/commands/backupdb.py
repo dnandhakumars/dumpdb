@@ -14,12 +14,18 @@ class Command(BaseCommand):
     help = 'Dump and Restore Database'
 
     def add_arguments(self, parser):
-        parser.add_argument('-d', '--databases', nargs='+', help="To dump selected db --databases [OPTIONS] DB1,DB2,DB3...]")
-        parser.add_argument('-gz', '--compress', action='store_true', help='to compress dump file')
+        parser.add_argument('-d', '--databases', nargs='+',
+                            help="To dump selected db --databases [OPTIONS] DB1,DB2,DB3...]")
+        parser.add_argument('-gz', '--compress', action='store_true',
+                            help='to compress dump file')
+        parser.add_argument('-itbl', '--ignore-table', nargs='+',
+                            help="To ignore specified table(s) which must be specified using both the database and table names. eg: dbname.tbl_name")
+        parser.add_argument('-tbl', '--tables', nargs='+',
+                            help="To dump specified table(s) which must be specified after db name. eg: -d dbname -tbl tbl_name1, tbl_name2....")
 
     def handle(self, *args, **options):
-        opt_databases = options.get('databases', None)
-        self.compress = options.get('compress', False)
+        opt_databases   = options.get('databases', None)
+        self.compress   = options.get('compress', False)
 
         db_keys = self.get_db_keys(opt_databases) or settings.DATABASES
         if db_keys:
@@ -31,6 +37,8 @@ class Command(BaseCommand):
                 else:
                     self.connector = get_module(db_key, conn)
                     database = self.connector.settings
+                    self.connector.ignore_tabled = options.get('ignore_table') or []
+                    self.connector.req_tables = options.get('tables') or []
                     self.dump_db(database)
         else:
             self.stdout.write(self.style.MIGRATE_HEADING('Running backupdb:'))
@@ -42,9 +50,7 @@ class Command(BaseCommand):
         """
         self.stdout.write(self.style.MIGRATE_HEADING('Running backupdb:'))
         self.stdout.write(self.style.WARNING('Selected Database: '+ database.get('NAME')))
-        print(datetime.datetime.now().strftime("%Y-%b-%d %H:%M:%S") )
-        now = datetime.datetime.now()
-        filename = self.connector.get_filename(now)
+        filename = self.connector.get_filename(datetime.datetime.now())
         outputfile = self.connector.create_dump()
 
         #compress file
@@ -52,10 +58,8 @@ class Command(BaseCommand):
             outputfile, filename = compress_file_gzip(filename, outputfile)
                     
         self.connector.write_file_to_local(outputfile, filename)
-
         self.stdout.write(self.style.MIGRATE_LABEL('Processing file: '+ filename))
-        self.stdout.write(self.style.SUCCESS('Dump completed on '+ now.strftime("%Y-%b-%d %H:%M:%S") +''))
-        print(datetime.datetime.now().strftime("%Y-%b-%d %H:%M:%S") )
+        self.stdout.write(self.style.SUCCESS('Dump completed on '+ datetime.datetime.now().strftime("%Y-%b-%d %H:%M:%S") +'.'))
         
     def get_db_keys(self, databases):
         """

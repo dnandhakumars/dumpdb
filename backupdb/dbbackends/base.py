@@ -14,7 +14,8 @@ class BaseSettingsConverter(object):
     Base class to get all db settings 
     """
     file_extension = 'dump'
-    exclude = []
+    ignore_tabled = []
+    req_tables = []
 
     def __init__(self, database_name=None, **kwargs):
         from django.db import connections, DEFAULT_DB_ALIAS
@@ -69,7 +70,9 @@ class CommonBaseCommand(BaseSettingsConverter):
                 process = Popen(cmd, stdin=stdin, stdout=stdout, stderr=stderr)
             process.wait()      #Wait for child process to terminate
             if process.poll():  #Check if child process has terminated
-                raise exceptions.SubProcessException(process.stderr)
+                stderr.seek(0)
+                err_msg = stderr.read().decode('utf-8')
+                raise exceptions.CustomCommandException(message=err_msg)
             return stdout, stderr
         except OSError as err:
             raise exceptions.ProcessException(err)
