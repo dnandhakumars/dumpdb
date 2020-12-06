@@ -2,7 +2,7 @@ Mysqldump is a django package used to generate the database backup(s) and to res
 
 ## Installation
     * pip install mysqldump
-    * Add 'backupdb' to your 'settings.py'
+    * Add 'dbmanager' to your 'settings.py'
     * Run the below command to backup all database(s) configured inside *settings.py*
         * ./manage.py backupdb
 
@@ -11,26 +11,32 @@ Mysqldump is a django package used to generate the database backup(s) and to res
 
 ** Installed apps: **
 
+Add 'dbmanager' to your 'settings.py'
+
 ```
     INSTALLED_APPS = [
-        'backupdb',
+        'dbmanager',
     ]
 ```
 
 ** TMP_DIR **
 
-```
-    TMP_DIR = '/var/www/html/my_project/tmp/'
-
-```
 By default package will use system tmp directory.
 
+```
+    TMP_DIR = '/var/www/html/my_project/tmp/'
+```
+
+
 ** DUMP_DIR **
+
+By default file will be stored in project container directory.
+Specify the location to store the dumped file(s).
 
 ```
     DUMP_DIR = '/var/www/html/my_project/backup_dir/'
 ```
-Specify the location to store the dumped data.
+
 
 
 ## Commands
@@ -66,7 +72,7 @@ Dump completed on 2020-Nov-30 09:55:43
 
 ```
 
-To compress the dump data with gzip.
+To archive the dump data with gzip.
 
 -gz, --compress
 
@@ -96,7 +102,8 @@ To ignore specified table from database(s).
     ./manage.py backupdb -d db_name1 --ignore-table db_name1.tbl_name1
 ```
 
-multiple databases can be used while using command ignore table(s).
+multiple databases can be used while using *--ignore-table*.
+
 ```
     ./manage.py backupdb -d db_name1 db_name2 --ignore-table db_name1.tbl_name1 db_name2.tbl_name2
 

@@ -2,7 +2,7 @@ Mysqldump is a django package used to generate the database backup(s) and to res
 
 ## Installation
     * pip install mysqldump
-    * Add 'backupdb' to your 'settings.py'
+    * Add 'dbmanager' to your 'settings.py'
     * Run the below command to backup all database(s) configured inside *settings.py*
         * ./manage.py backupdb
 
@@ -13,7 +13,7 @@ Mysqldump is a django package used to generate the database backup(s) and to res
 
 ```
     INSTALLED_APPS = [
-        'backupdb',
+        'dbmanager',
     ]
 ```
 

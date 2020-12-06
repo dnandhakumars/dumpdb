@@ -16,7 +16,7 @@ with open("README.md", "r") as fh:
  
 setup(
   name='mysqldump',
-  version='0.0.8',
+  version='0.0.9',
   description='Mysqldump is a django package that is used to generate the logical backup of the MySQL database',
   long_description=long_description,
   long_description_content_type = 'text/markdown',
@@ -25,7 +25,7 @@ setup(
   author_email='dnandhakumars@gmail.com',
   license='MIT', 
   classifiers=classifiers,
-  keywords='mysqldump','backup', 'restore',
+  keywords='mysqldump, backup, restore',
   include_package_data=True,
   packages=find_packages(),
   python_requires='>=3.6',

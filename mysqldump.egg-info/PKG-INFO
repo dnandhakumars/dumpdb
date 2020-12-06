@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: mysqldump
-Version: 0.0.7
+Version: 0.0.9
 Summary: Mysqldump is a django package that is used to generate the logical backup of the MySQL database
 Home-page: UNKNOWN
 Author: Nandhakumar D
@@ -19,6 +19,8 @@ Description: Mysqldump is a django package used to generate the database backup(
         
         ** Installed apps: **
         
+        Add 'backupdb' to your 'settings.py'
+        
         ```
             INSTALLED_APPS = [
                 'backupdb',
@@ -27,24 +29,28 @@ Description: Mysqldump is a django package used to generate the database backup(
         
         ** TMP_DIR **
         
-        ```
-            TMP_DIR = '/var/www/html/my_project/tmp/'
-        
-        ```
         By default package will use system tmp directory.
         
+        ```
+            TMP_DIR = '/var/www/html/my_project/tmp/'
+        ```
+        
+        
         ** DUMP_DIR **
+        
+        By default file will be stored in project container directory.
+        Specify the location to store the dumped file(s).
         
         ```
             DUMP_DIR = '/var/www/html/my_project/backup_dir/'
         ```
-        Specify the location to store the dumped data.
+        
         
         
         ## Commands
         ------------
         
-        if you use the backupdb option alone, entire database(s) are dumped.
+        *backupdb* will dump all database(s) specified inside **settings.py**.
         
         ```
             ./manage.py backupdb
@@ -74,7 +80,7 @@ Description: Mysqldump is a django package used to generate the database backup(
         
         ```
         
-        To compress the dump data with gzip.
+        To archive the dump data with gzip.
         
         -gz, --compress
         
@@ -87,7 +93,30 @@ Description: Mysqldump is a django package used to generate the database backup(
         Dump completed on 2020-Nov-30 09:55:43
         
         ```
-Keywords: mysqldump
+        
+        To dump specified table from database.
+        
+        -tbl, --tables
+        
+        ```
+            ./manage.py backupdb -d db_name1 --tables tbl_name1 tbl_name2
+        ```
+        
+        To ignore specified table from database(s).
+        
+        -itbl, --ignore-table
+        
+        ```
+            ./manage.py backupdb -d db_name1 --ignore-table db_name1.tbl_name1
+        ```
+        
+        multiple databases can be used while using *--ignore-table*.
+        
+        ```
+            ./manage.py backupdb -d db_name1 db_name2 --ignore-table db_name1.tbl_name1 db_name2.tbl_name2
+        
+        ```
+Keywords: mysqldump,backup,restore
 Platform: UNKNOWN
 Classifier: Development Status :: 4 - Beta
 Classifier: Intended Audience :: Education

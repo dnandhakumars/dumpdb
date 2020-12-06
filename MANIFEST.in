@@ -1,2 +1,4 @@
+include README.md
+include LICENSE.txt
 global-include *.txt *.py
 recursive-exclude env *
