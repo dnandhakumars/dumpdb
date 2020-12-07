@@ -86,6 +86,7 @@ class CommonBaseCommand(BasicSettings):
 
         try:
             if isinstance(stdin, File):
+                stdin.seek(0)
                 process = Popen(cmd, stdin=stdin.open("rb"), stdout=stdout, stderr=stderr)
             else:
                 process = Popen(cmd, stdin=stdin, stdout=stdout, stderr=stderr)

@@ -24,7 +24,7 @@ class Command(BaseCommand):
         self.filename = options.get('filename', None)
         # self.input_path = options.get('input_file', None)
         db_keys = get_db_keys(database)
-        self.stdout.write(self.style.MIGRATE_HEADING('Running restoredb:'))
+        self.stdout.write(self.style.MIGRATE_HEADING('Running importdb:'))
         if self.filename:
             if db_keys:
                 for db_key in db_keys:

@@ -28,7 +28,7 @@ class Command(BaseCommand):
         self.compress   = options.get('compress', False)
 
         db_keys = get_db_keys(opt_databases) or settings.DATABASES
-        self.stdout.write(self.style.MIGRATE_HEADING('Running backupdb:'))
+        self.stdout.write(self.style.MIGRATE_HEADING('Running exportdb:'))
         if db_keys:
             for db_key in db_keys:
                 conn = connections[db_key]
