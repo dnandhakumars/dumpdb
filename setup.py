@@ -4,10 +4,11 @@ from os import path
 
 classifiers = [
   'Development Status :: 4 - Beta',
-  'Intended Audience :: Education',
+  'Intended Audience :: Developers',
   'Operating System :: POSIX :: Linux',
   'License :: OSI Approved :: MIT License',
-  'Programming Language :: Python :: 3'
+  'Programming Language :: Python :: 3',
+  'Framework :: Django :: 3.0'
 ]
 
 with open("README.md", "r") as fh:
@@ -16,8 +17,8 @@ with open("README.md", "r") as fh:
  
 setup(
   name='mysqldump',
-  version='0.0.9',
-  description='Mysqldump is a django package that is used to generate the logical backup of the MySQL database',
+  version='0.0.10',
+  description='Mysqldump is a django package to import and export mysql database.',
   long_description=long_description,
   long_description_content_type = 'text/markdown',
   url='',  
