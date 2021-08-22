@@ -1,5 +1,7 @@
 Mysqldump is a django package to import and export mysql database.
 
+[![Downloads](https://pepy.tech/badge/mysqldump)](https://pepy.tech/project/mysqldump) [![Downloads](https://pepy.tech/badge/mysqldump/month)](https://pepy.tech/project/mysqldump) [![Downloads](https://pepy.tech/badge/mysqldump/week)](https://pepy.tech/project/mysqldump)
+
 ## Installation
     * pip install mysqldump
     * Add 'dbmanager' to your 'settings.py'
