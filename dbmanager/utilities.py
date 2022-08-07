@@ -1,33 +1,44 @@
 import gzip
 import tempfile
-from .settings import TMP_FILE_MAX_SIZE, TMP_DIR, TMP_FILE_READ_SIZE
 from shutil import copyfileobj
+
 from django.conf import settings
+
 from .exceptions import DatabaseNotFoundException
+from .settings import TMP_DIR
+from .settings import TMP_FILE_MAX_SIZE
+from .settings import TMP_FILE_READ_SIZE
+
 
 def compress_file_gzip(filename, outputfile):
     """
     create a dest and copy file to dest
     using gzip compress the data.
     """
-    temp_file = tempfile.SpooledTemporaryFile(max_size=TMP_FILE_MAX_SIZE, dir=TMP_DIR)
-    fn = filename+".gz"
+    temp_file = tempfile.SpooledTemporaryFile(
+        max_size=TMP_FILE_MAX_SIZE, dir=TMP_DIR,
+    )
+    fn = filename+'.gz'
     outputfile.seek(0)
-    with gzip.GzipFile(filename=fn, fileobj=temp_file, mode="wb") as fd:
+    with gzip.GzipFile(filename=fn, fileobj=temp_file, mode='wb') as fd:
         copyfileobj(outputfile, fd, TMP_FILE_READ_SIZE)
     return temp_file, fn
+
 
 def decompress_file_gzip(inputfile):
     """
     create a dest and copy file to dest
     using gzip decompress the data.
     """
-    temp_file = tempfile.SpooledTemporaryFile(max_size=TMP_FILE_MAX_SIZE, dir=TMP_DIR)
+    temp_file = tempfile.SpooledTemporaryFile(
+        max_size=TMP_FILE_MAX_SIZE, dir=TMP_DIR,
+    )
     inputfile.seek(0)
-    read_zip = gzip.GzipFile(fileobj=inputfile, mode="rb")
+    read_zip = gzip.GzipFile(fileobj=inputfile, mode='rb')
     read_zip.seek(0)
     copyfileobj(read_zip, temp_file, TMP_FILE_READ_SIZE)
     return temp_file
+
 
 def get_db_keys(databases):
     """

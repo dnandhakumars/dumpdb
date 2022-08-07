@@ -19,9 +19,9 @@ class MysqlDump(CommonBaseCommand):
         if self.settings.get('PASSWORD'):
             cmd += ' --password={}'.format(self.settings['PASSWORD'])
         for rtable in self.req_tables:
-            cmd += ' {}'.format(rtable)
+            cmd += f' {rtable}'
         for itable in self.ignore_tabled:
-            cmd += ' --ignore-table={}'.format(itable)
+            cmd += f' --ignore-table={itable}'
         stdout, stderr = self.run_command(cmd)
         return stdout
 
@@ -35,6 +35,6 @@ class MysqlDump(CommonBaseCommand):
             cmd += ' --user={}'.format(self.settings['USER'])
         if self.settings.get('PASSWORD'):
             cmd += ' --password={}'.format(self.settings['PASSWORD'])
-            
+
         stdout, stderr = self.run_command(cmd, stdin=dump)
         return stdout, stderr

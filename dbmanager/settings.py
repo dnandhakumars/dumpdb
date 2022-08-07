@@ -1,5 +1,5 @@
-import os
 import tempfile
+
 from django.conf import settings
 
 CUSTOM_MODULES = {
@@ -18,7 +18,9 @@ CUSTOM_MODULES = {
 # 500MB - 429916160
 
 TMP_FILE_MAX_SIZE = getattr(settings, 'DBBACKUP_TMP_FILE_MAX_SIZE', 10485760)
-TMP_FILE_READ_SIZE = getattr(settings, 'DBBACKUP_TMP_FILE_READ_SIZE', 1024 * 1000)
+TMP_FILE_READ_SIZE = getattr(
+    settings, 'DBBACKUP_TMP_FILE_READ_SIZE', 1024 * 1000,
+)
 
 CONNECTORS = getattr(settings, 'DATABASES', {})
 DATABASES = getattr(settings, 'DATABASES', list(settings.DATABASES.keys()))
