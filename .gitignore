@@ -4,3 +4,15 @@ env/
 manage.py
 mysqldump.egg-info/
 sample1/
+dist/
+MANIFEST
+build/
+coverage.xml
+dist/
+htmlcov/
+.cache/
+.coverage
+.pytest_cache/
+.tox/
+.venv/
+.dist/

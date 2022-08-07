@@ -1,0 +1,24 @@
+[tool.vulture]
+ignore_decorators = ["@app.route", "@require_*"]
+ignore_names = ["visit_*", "do_*"]
+make_whitelist = true
+min_confidence = 80
+paths = ["dbmanager"]
+sort_by_size = true
+verbose = true
+
+[tool.black]
+line-length = 79
+target-version = ['py36', 'py37', 'py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.tox
+  | \.venv
+  | _build
+  | build
+  | dist
+)/
+'''
